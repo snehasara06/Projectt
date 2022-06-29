@@ -1,0 +1,40 @@
+div{
+    margin-top:15px;
+    margin-left:50px;  
+}
+input,label,select,textarea{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+input{
+    width: 80%;
+    height:40px;
+}
+textarea{
+    width: 80%;
+    height:100px;
+    resize: none;
+    overflow:auto;
+}
+small{
+    margin-left: 15px;
+}
+h2{
+    margin-top:20px;
+    margin-left: 290px;
+    text-align: center;
+    background-color: lightskyblue;
+    border: 2px solid black;
+    width: 50%;
+    height: 50px;
+}
+.form-container{
+    margin-left: 290px;
+    border: 2px solid black;
+    width:50% ;
+    background-color: coral;
+}
+.btn{
+    margin: 10px 0px;
+    margin-left: 90px;
+}

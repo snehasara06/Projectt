@@ -1,0 +1,31 @@
+<!-- <div class="head">
+    <h2 class="pt-1">EMPLOYEE PROJECT TRACKER</h2>
+</div> -->
+<div class="login-container">
+    <h3 class="pt-1 bg-secondary rounded">Employee Login</h3>
+    <form #loginForm="ngForm" class="form-container rounded">
+        <div>
+            <label><b>Username (Your Employee ID)</b></label>
+            <input type="text" #username="ngModel" class="form-control"
+                [class.is-invalid]="username.invalid && username.touched" name="username" [(ngModel)]="name" required>
+            <small class="text-danger" [class.d-none]="username.valid || username.untouched">Enter your Username</small>
+            
+        </div>
+        <div>
+            <label><b>Password</b></label>
+            <input type="password" #password="ngModel" class="form-control" pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                [class.is-invalid]="password.invalid && password.touched" name="password" [(ngModel)]="passwordVal"
+                required>
+            <small class="text-danger" *ngIf="password.errors?.['required']" [class.d-none]="password.untouched">Enter your Password</small>
+            <small *ngIf="password.errors?.['pattern']" class="text-danger" [class.d-none]="password.untouched||password.valid">Password must start with Alphabet and contain 8 letters with atleast one number</small>
+        </div>
+        <div class="btns">
+            <button class="btn btn-primary btn-sm" [disabled]="loginForm.form.invalid" (click)="login(loginForm)">Login</button>
+        </div>
+        <div class="new">
+            <label class="newLabel">New User ?</label>
+            <button class="btn btn-link" (click)="signUp()"><span>Sign Up</span></button>
+        </div>
+
+    </form>
+</div>

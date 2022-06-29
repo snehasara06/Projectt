@@ -1,0 +1,78 @@
+<!-- <div class="head">
+    <h2 class="pt-1">EMPLOYEE PROJECT TRACKER</h2>
+</div> -->
+<div class="signUp-container rounded">
+    <h3 class="pt-1 bg-secondary rounded">Employee Sign-Up</h3>
+    <form #signUpForm="ngForm" class="form-container rounded">
+       <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService._id">
+       <div>
+            <label><b>First Name</b></label>
+            <input type="text" #first_name="ngModel" class="form-control" pattern="^[A-Za-z]{2,}$"
+                [class.is-invalid]="first_name.invalid && first_name.touched" name="first_name" [(ngModel)]="employeeService.first_name" required>
+            <small class="text-danger" [class.d-none]="first_name.valid || first_name.untouched">Enter your First Name</small>
+        </div>
+        <div>
+            <label><b>Last Name</b></label>
+            <input type="text" #last_name="ngModel" class="form-control" pattern="^[A-Za-z]{2,}$"
+                [class.is-invalid]="last_name.invalid && last_name.touched" name="last_name" [(ngModel)]="employeeService.last_name" required>
+            <small class="text-danger" [class.d-none]="last_name.valid || last_name.untouched">Enter your Last Name</small>
+        </div>
+        <div>
+            <label><b>Employee ID</b></label>
+            <input type="text" #employeeId="ngModel" class="form-control" pattern="^(ACE)[0-9]{4}$"
+                [class.is-invalid]="employeeId.invalid && employeeId.touched" name="employeeId" [(ngModel)]="employeeService.employeeId" required>
+            <small class="text-danger" [class.d-none]="employeeId.valid || employeeId.untouched">Enter your ID</small>
+        </div>
+        <div>
+            <label><b>Email ID</b></label>
+            <input type="email" #emailId="ngModel" class="form-control" pattern="^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [class.is-invalid]="emailId.invalid && emailId.touched" name="emailId" [(ngModel)]="employeeService.emailId" required>
+            <small class="text-danger" [class.d-none]="emailId.valid || emailId.untouched">Enter your ID</small>
+        </div>
+        <div>
+            <label><b>Department</b></label><br>
+            <select #department="ngModel" [(ngModel)]="employeeService.department" name="department" class="rounded"
+                [class.is-invalid]="department.invalid && department.touched" required>
+                <option value="" hidden>Select your Department</option>
+                <option value="LAMP">LAMP</option>
+                <option value="DOTNET">DOTNET</option>
+                <option value="EBA">EBA</option>
+                <option value="ORACLE">ORACLE</option>
+                <option value="IAS">IAS</option>
+            </select><br>
+            <small class="text-danger" [class.d-none]="department.valid||department.untouched">Select your Department</small>
+        </div>
+        <div>
+            <label><b>Role</b></label><br>
+            <select #role="ngModel" [(ngModel)]="employeeService.role" name="role" class="rounded" [class.is-invalid]="role.invalid && role.touched" required>
+                <option value="" hidden>Select your Role</option>
+                <option value="Employee">Employee</option>
+                <option value="Manager">Manager</option>
+            </select><br>
+            <small class="text-danger" [class.d-none]="role.valid||role.untouched">Select your Role</small>
+
+        </div>
+        <div>
+            <label><b>Password</b></label>
+            <input type="password" #password="ngModel" class="form-control" pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                [class.is-invalid]="password.invalid && password.touched" name="password" [(ngModel)]="employeeService.password"
+                required>
+            <small class="text-danger" *ngIf="password.errors?.['required']" [class.d-none]="password.untouched">Enter your Password</small>
+            <small *ngIf="password.errors?.['pattern']" class="text-danger" [class.d-none]="password.untouched||password.valid">Password must start with Alphabet and contain 8 letters with atleast one number</small>
+        </div>
+
+        <div>
+            <label><b>Confirm Password</b></label>
+            <input type="password" #confirmPass="ngModel" class="form-control" pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                [class.is-invalid]="confirmPass.invalid && confirmPass.touched" name="confirmPass" [(ngModel)]="employeeService.confirmPass" (keyup)="checkPass($event)"
+                required> 
+            <small class="text-danger" *ngIf="confirmPass.errors?.['required']; else elseBlock" [class.d-none]="confirmPass.untouched">Enter your Password</small>
+            <ng-template #elseBlock><small *ngIf="visible && confirmPass.touched " class="text-danger" >Password does not match</small></ng-template>
+        </div>
+
+        <div class="btn">
+            <button class="btn btn-secondary btn-sm" (click)="cancel()">Cancel</button>
+            <button [disabled]="signUpForm.form.invalid" class="btn btn-primary btn-sm" (click)="register(signUpForm)">Sign up</button>
+        </div>
+    </form>
+</div>

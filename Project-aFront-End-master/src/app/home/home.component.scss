@@ -1,0 +1,37 @@
+.head {
+    color: white;
+    text-align: center;
+}
+h2{
+    margin-right: 10px;
+}
+span{
+    margin-left: 77%;
+}
+button {
+    float: right;
+    font-size:15px;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+nav,nav button{
+    margin-left: 20px;
+}
+table,th,tr,td {
+    margin: 15px;
+    text-align: center;
+    border: 1px solid black;
+}
+td{
+    width: 20px;
+    resize: none;
+}
+th {
+    font-size: large;
+}
+table{
+    width:98%
+}
+td button{
+    float: none;
+}
