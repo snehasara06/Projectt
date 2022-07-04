@@ -1,8 +1,9 @@
 <div class="new-timesheet-container rounded">
     <h2>Timesheet Form</h2>
-    <form #timesheetForm="ngForm" class="form-container rounded">
+    <form #timesheetForm="ngForm" class="form-container rounded"> 
+        <!-- #editForm="ngModel" name="editForm" [(ngModel)]="form" -->
         <div class="demo text-left mr-2 small">Click here to fill the existing details of selected timesheet
-            <button class="btn-primary btn-sm" (click)=formData(timesheetForm)>Fill</button><br>
+            <button class="btn-primary btn-sm" (onload)="formData(timesheetForm)" (click)=formData(timesheetForm)>Fill</button><br>
         </div>
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="timesheetService._id">
         <div>

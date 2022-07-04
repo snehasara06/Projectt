@@ -3,10 +3,15 @@ const envFile=require('dotenv/config')
 const express=require("express")
 const cookieParser=require('cookie-parser')
 const cors=require('cors')
+
+const { isAuthenticatedUser }=require('./middlewares/auth')
+
 const app=express()
 app.use(express.json())
 app.use(cors({origin:'http://localhost:4200'}))
 app.use(cookieParser())
+
+
 
 mongoose.connect(process.env.DB_CONNECTION_STRING)
 .then(()=>{

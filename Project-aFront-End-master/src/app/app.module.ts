@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -10,6 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
 import { EditTimesheetComponent } from './edit-timesheet/edit-timesheet.component';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './service/token-interceptor.service';
+import { EmployeeComponent } from './employee/employee.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,8 @@ import { EditTimesheetComponent } from './edit-timesheet/edit-timesheet.componen
     HomeComponent,
     PageNotFoundComponent,
     TimesheetComponent,
-    EditTimesheetComponent
+    EditTimesheetComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,7 @@ import { EditTimesheetComponent } from './edit-timesheet/edit-timesheet.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthGuard,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

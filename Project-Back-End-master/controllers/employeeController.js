@@ -2,11 +2,9 @@ const Employee = require('../models/employee')
 const { ObjectId } = require('mongodb');
 const { loginValidation, registerValidation } = require('../validation')
 const bcrypt = require('bcryptjs')
-const employee = require('../models/employee');
-const sendToken = require('../utils/jwtToken');
+const jwt=require('jsonwebtoken')
 
-
-const getAllEmployees = async (req, res, next) => {
+const getAllEmployees = async (req, res) => {
     let employee;
     try {
         employee = await Employee.find()
@@ -34,7 +32,7 @@ const getOneEmployee = async (req, res) => {
     return res.status(200).json(employee)
 }
 
-const addEmployee = async (req, res) => {
+const signUpEmployee = async (req, res) => {
     const { error } = registerValidation(req.body);
     if (error)
         return res.status(404).send(error.details[0].message)
@@ -43,9 +41,7 @@ const addEmployee = async (req, res) => {
     if (existUser)
         return res.status(400).send('User already exists')
 
-    const salt = await bcrypt.genSalt();
-    //console.log(salt)
-    const hashPassword = await bcrypt.hash(req.body.password, salt)
+    const hashPassword = await bcrypt.hash(req.body.password, 10)
 
     let employee;
     try {
@@ -65,11 +61,11 @@ const addEmployee = async (req, res) => {
         return console.log(`Error:${err}`)
     }
 
-    // const token = employee.getJwtToken();
-    // return res.status(201).json({ success: true, employee, token })
-    const message = "Successfully Registered";
-    sendToken(employee, 200, res, message)
-
+    let payload={id:employee._id}
+    let token=jwt.sign(payload,process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE})
+    res.status(201).send({token})
+    //console.log("Successfully Registered");
+   // sendToken(employee, 200, res, message) 
 
 }
 
@@ -78,8 +74,7 @@ const loginEmployee = async (req, res) => {
     const { error } = loginValidation(req.body);
     if (error)
         return res.status(400).send(error.details[0].message)
-
-    const user = await employee.findOne({ employeeId: req.body.userId })
+    const user = await Employee.findOne({ employeeId: req.body.employeeId })
     if (!user)
         return res.status(401).send('Invalid Username')
     try {
@@ -91,14 +86,27 @@ const loginEmployee = async (req, res) => {
         return console.log(err)
     }
 
-    const message = "Successfully Logged in";
-    sendToken(user, 200, res, message)
+    let payload={id:user._id}
+    let token=jwt.sign(payload,process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE})
+    //console.log("Successfully Logged in");
+    res.status(201).send({user,token})
+}  
 
-}
+// const loginEmployeeRole=async(req,res)=>{
+//     try{
+//     const employee=await Employee.findOne({employeeId:req.body.employeeId})
+//     const role=employee.role
+//     return res.status(200).send(role)
+//     }
+//     catch(err){
+//         return res.status(401).send("Something went wrong")
+//     }
+
+// }
 
 const logoutEmployee = async (req, res) => {
     try {
-        res.cookie("token", null, {
+        res.header("Authorization", `Bearer ${null}`, {
             expires: new Date(Date.now()),
             httpOnly: true
         })
@@ -144,4 +152,4 @@ const deleteEmployee = async (req, res) => {
     return res.status(200).json({ message: "Successfully deleted" })
 }
 
-module.exports = { getAllEmployees, getOneEmployee, addEmployee, updateEmployee, deleteEmployee, loginEmployee, logoutEmployee }
+module.exports = { getAllEmployees, getOneEmployee, signUpEmployee, updateEmployee, deleteEmployee, loginEmployee, logoutEmployee }

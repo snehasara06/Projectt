@@ -18,7 +18,6 @@ const employee=new mongoose.Schema({
     emailId: {
         type: String,
         lowercase: true,
-        unique: true,
         required: true
     },
     department:{
@@ -34,10 +33,10 @@ const employee=new mongoose.Schema({
     }
 })
 
-//JWT Token
-employee.methods.getJwtToken=()=>{
-    return jwt.sign({_id:this._id},process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE});
-}
+// //JWT Token
+// employee.methods.getJwtToken=()=>{
+//     return jwt.sign({_id:employeeId._id},process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE});
+// }
 
 
 module.exports=mongoose.model('employee',employee)

@@ -6,15 +6,15 @@
     <form #loginForm="ngForm" class="form-container rounded">
         <div>
             <label><b>Username (Your Employee ID)</b></label>
-            <input type="text" #username="ngModel" class="form-control"
-                [class.is-invalid]="username.invalid && username.touched" name="username" [(ngModel)]="name" required>
-            <small class="text-danger" [class.d-none]="username.valid || username.untouched">Enter your Username</small>
+            <input type="text" #employeeId="ngModel" class="form-control"
+                [class.is-invalid]="employeeId.invalid && employeeId.touched" name="employeeId" [(ngModel)]="employeeService.employeeId" required>
+            <small class="text-danger" [class.d-none]="employeeId.valid || employeeId.untouched">Enter your Username</small>
             
         </div>
         <div>
             <label><b>Password</b></label>
             <input type="password" #password="ngModel" class="form-control" pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                [class.is-invalid]="password.invalid && password.touched" name="password" [(ngModel)]="passwordVal"
+                [class.is-invalid]="password.invalid && password.touched" name="password" [(ngModel)]="employeeService.password"
                 required>
             <small class="text-danger" *ngIf="password.errors?.['required']" [class.d-none]="password.untouched">Enter your Password</small>
             <small *ngIf="password.errors?.['pattern']" class="text-danger" [class.d-none]="password.untouched||password.valid">Password must start with Alphabet and contain 8 letters with atleast one number</small>

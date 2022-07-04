@@ -20,13 +20,12 @@ export class TimesheetService {
   readonly baseURL = "http://localhost:9000/timesheet/";
   selectedTimesheet!: Timesheet;
   timesheets!: Timesheet[];
-  
 
   timesheetToEdit(){
     return this.selectedTimesheet._id;
   }
   getTimesheet() {
-    return this.http.get<any>(this.baseURL);
+    return this.http.get<any>(this.baseURL)
   }
 
   getTimesheetById(_id: String) {

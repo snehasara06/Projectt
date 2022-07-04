@@ -7,11 +7,11 @@ router.get('/',getAllTimesheets)
 
 router.get('/:id',getOneTimesheet)
 
-router.post('/',isAuthenticatedUser,addTimesheet)
+router.post('/',addTimesheet)
 
-router.put('/update/:id',isAuthenticatedUser,updateTimesheet)
+router.put('/update/:id',updateTimesheet)
 
-router.delete('/delete/:id',isAuthenticatedUser,deleteTimesheet)
+router.delete('/delete/:id',deleteTimesheet)
 
 module.exports = router
- 
+  

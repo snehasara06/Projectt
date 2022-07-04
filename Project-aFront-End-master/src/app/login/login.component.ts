@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthServiceService } from '../service/auth-service.service';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../service/employee.service';
 
 @Component({
   selector: 'app-login',
@@ -10,29 +10,29 @@ import { AuthServiceService } from '../service/auth-service.service';
 })
 export class LoginComponent implements OnInit {
 
-
-  
-  constructor(private router:Router,private authService:AuthServiceService) { }
-
-  name:string=''
-  passwordVal:string=''
+  constructor(private router: Router, protected employeeService: EmployeeService) { }
 
   ngOnInit(): void {
   }
-  
-  login(form:NgForm){
-      this.authService.login(form.value).subscribe((data: any)=>{
-        if(data){
-          console.log(data)
-        }
-        else{
-          console.log("NO")
-        }
-      })
-     this.router.navigate(['/home'])
+
+  login(form: NgForm) {
+    this.employeeService.login(form.value).subscribe((data: any) => {
+
+      this.employeeService.loginRole = data.user.role
+      if (this.employeeService.loginRole == "Manager") {
+        localStorage.setItem('role', data.user.role)
+      }
+
+      localStorage.setItem('token', data.token)
+      //console.log(data.token)
+      form.reset()
+      this.router.navigate(['/home'])
+    }, (error) => {
+
+    })
   }
 
-  signUp(){
+  signUp() {
     this.router.navigate(['/sign-up'])
   }
 

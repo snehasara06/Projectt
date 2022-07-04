@@ -1,15 +1,17 @@
 const express = require('express')
-const {getAllEmployees,getOneEmployee,addEmployee,updateEmployee,deleteEmployee,loginEmployee,logoutEmployee} = require('../controllers/employeeController')
+const {getAllEmployees,getOneEmployee,signUpEmployee,updateEmployee,deleteEmployee,loginEmployee,logoutEmployee} = require('../controllers/employeeController')
 const router = express.Router()
-const { isAuthenticatedUser,authorizedRoles }=require('../middlewares/auth')
+const { isAuthenticatedUser }=require('../middlewares/auth')
 
-router.get('/',getAllEmployees)
+router.get('/',isAuthenticatedUser,getAllEmployees)
 
 router.get('/:id',isAuthenticatedUser,getOneEmployee)
 
-router.post('/sign-up',addEmployee)
+router.post('/sign-up',signUpEmployee)
 
-router.post('/login',loginEmployee)
+router.post('/login',loginEmployee )
+
+//router.get('/login',loginEmployeeRole )
 
 router.get('/:id/logout',logoutEmployee)
 

@@ -23,17 +23,17 @@ export class TimesheetComponent implements OnInit {
     this.router.navigate(['home'])
   }
   Onsubmit(form: NgForm) {
-    
-      //console.log("hello : " + this.timesheetService.description);
-      this.timesheetService.postTimesheet(form.value).subscribe((data) => {
-        console.log(data);
-      })
-      window.alert('TimeSheet Saved successfully!!!')
-      this.router.navigate(['home'])
-      this.refreshList();
+
+    //console.log("hello : " + this.timesheetService.description);
+    this.timesheetService.postTimesheet(form.value).subscribe((data) => {
+      console.log(data);
+    })
+    window.alert('TimeSheet Saved successfully!!!')
+    this.router.navigate(['home'])
+    this.refreshList();
   }
 
-  refreshList(){
+  refreshList() {
     this.timesheetService.getTimesheet().subscribe((data) => {
       this.timesheetService.timesheets = data;
       console.log(data)

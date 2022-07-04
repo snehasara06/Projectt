@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Timesheet } from '../service/timesheet';
 import { TimesheetService } from '../service/timesheet.service';
+import { EmployeeService } from '../service/employee.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,19 +14,19 @@ export class HomeComponent implements OnInit {
 
   timesheets: Timesheet[] = []
   visible!: boolean;
+  show!:boolean;
   selectedTimeSheet!:String
-  constructor(private router: Router, protected timesheetService: TimesheetService) { }
+
+
+  constructor(private router: Router, protected timesheetService: TimesheetService,protected employeeService:EmployeeService) { }
 
   ngOnInit(): void {
     this.timesheetList();
+   //console.log(this.employeeService.loginRole)
   }
 
-  logout() {
+  logout() { 
     this.router.navigate(['login'])
-  }
-
-  signUp() {
-    this.router.navigate(['sign-up'])
   }
 
   editTimeSheet(ts: Timesheet) {
@@ -54,6 +56,10 @@ export class HomeComponent implements OnInit {
   }
 
   timesheetList() {
+    if(this.employeeService.loginManager()){
+      this.show=true
+    }
+  //  console.log(this.employeeService.loginData)
     this.timesheetService.getTimesheet().subscribe((data) => {
       this.timesheetService.timesheets = data;
       if (data != 0) {
@@ -63,5 +69,9 @@ export class HomeComponent implements OnInit {
         this.visible = true;
       }
     })
+    
+  }
+  viewEmployees(){
+    this.router.navigate(['employees'])
   }
 }

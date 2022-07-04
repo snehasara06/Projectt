@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Employee } from '../service/employee';
 import { EmployeeService } from '../service/employee.service';
 
@@ -32,10 +32,11 @@ export class SignUpComponent implements OnInit {
   }
   register(form:NgForm) {
     this.employeeService.postEmployee(form.value).subscribe((data: any) => {
-      console.log(data);
-    })
-      window.alert("Successfully registered !!!")
+      console.log(data.token);
+      localStorage.setItem('token',data.token)
       this.router.navigate(['login'])
+    })
+
   }
 
 }

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TimesheetService } from '../service/timesheet.service';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router'
 import { formatDate } from '@angular/common';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-edit-timesheet',
@@ -17,13 +16,25 @@ export class EditTimesheetComponent implements OnInit {
   project_name!: string;
   date!: Date;
   locale = 'en-US';
+  form: any;
 
   //@Input() timesheet!:Timesheet;
 
   constructor(private router: Router, private route: ActivatedRoute, protected timesheetService: TimesheetService) { }
 
   ngOnInit(): void {
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload')
+      location.reload()
+    } else {
+      localStorage.removeItem('foo')
+    }
+    window.addEventListener('load', (event) => {
+      console.log('page is fully loaded');
+    });
+
   }
+
 
   cancel() {
     window.confirm("The Changes is not be saved . Are you sure to leave?")
@@ -56,8 +67,9 @@ export class EditTimesheetComponent implements OnInit {
   }
 
 
+
   Onsubmit(form: NgForm) {
-   
+
     console.log(this.id)
     this.timesheetService.putTimesheet(form.value).subscribe((data) => {
       console.log(data);
@@ -76,3 +88,7 @@ export class EditTimesheetComponent implements OnInit {
   }
 
 }
+function refresh() {
+  throw new Error('Function not implemented.');
+}
+
