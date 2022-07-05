@@ -1,7 +1,7 @@
 const Timesheet = require('../models/timesheet')
 const { ObjectId } = require('mongodb');
 
-const getAllTimesheets=async (req, res,next) => {
+const getAllTimesheets = async (req, res, next) => {
     let timesheet;
     try {
         timesheet = await Timesheet.find()
@@ -12,18 +12,20 @@ const getAllTimesheets=async (req, res,next) => {
     return res.status(200).json(timesheet)
 }
 
-const getOneTimesheet=async (req, res) => {
+const getOneTimesheet = async (req, res) => {
     let timesheet;
     try {
-        timesheet = await Timesheet.findById(req.params.id)
+        const idToFind = req.params.id;
+        timesheet = await Timesheet.findById({ _id: (idToFind) })
+        //console.log(timesheet)
     }
     catch (err) {
         return console.log(`Error : ${err}`)
     }
     return res.status(200).json(timesheet)
 }
- 
-const addTimesheet= async (req, res) => {
+
+const addTimesheet = async (req, res) => {
     let timesheet;
     try {
         timesheet = new Timesheet(req.body)
@@ -35,12 +37,12 @@ const addTimesheet= async (req, res) => {
     return res.status(200).json(timesheet)
 }
 
-const updateTimesheet=async(req,res)=>{
+const updateTimesheet = async (req, res) => {
     let timesheet;
     try {
         const idToUpdate = req.params.id;
-        const dataToUpdate=req.body;        
-        timesheet=await Timesheet.findById({_id:idToUpdate}).updateOne(dataToUpdate)
+        const dataToUpdate = req.body;
+        timesheet = await Timesheet.findById({ _id: idToUpdate }).updateOne(dataToUpdate)
     }
     catch (err) {
         return console.log(`Error:${err}`)
@@ -49,16 +51,16 @@ const updateTimesheet=async(req,res)=>{
 }
 
 
-const deleteTimesheet=async (req, res) => {
+const deleteTimesheet = async (req, res) => {
     let timesheet;
     try {
         const idToDelete = req.params.id;
-        timesheet = await Timesheet.deleteOne({_id:new ObjectId(idToDelete)}).clone();
+        timesheet = await Timesheet.deleteOne({ _id: new ObjectId(idToDelete) }).clone();
     }
     catch (err) {
         return console.log(`Error : ${err}`)
     }
-    return res.status(200).json({message:"Successfully deleted"})
+    return res.status(200).json({ message: "Successfully deleted" })
 }
 
-module.exports = {getAllTimesheets,getOneTimesheet,addTimesheet,updateTimesheet,deleteTimesheet}
+module.exports = { getAllTimesheets, getOneTimesheet, addTimesheet, updateTimesheet, deleteTimesheet }

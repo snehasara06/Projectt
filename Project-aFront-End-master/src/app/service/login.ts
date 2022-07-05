@@ -1,6 +1,5 @@
 export interface Login {
-    _id:String;
-    employeeId:String;
-    password:String;
-    _v:number;
+    _id: String;
+    employeeId: String;
+    password: String;
 }

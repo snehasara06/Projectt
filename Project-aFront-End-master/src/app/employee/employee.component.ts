@@ -12,27 +12,29 @@ export class EmployeeComponent implements OnInit {
 
   employees: Employee[] = []
   visible!: boolean;
-  selectedEmployee!:String
-  constructor(private router:Router,protected employeeService:EmployeeService) { }
+  selectedEmployee!: String
+  constructor(private router: Router, protected employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.employeeList();
-    
   }
 
-  logout() { 
+  logout() {
     this.router.navigate(['login'])
   }
 
+  back() {
+    this.router.navigate(['home'])
+  }
+
   editEmployee(emp: Employee) {
-     this.employeeService.getEmployeeById(emp._id).subscribe((data) => {
-   // console.log(data)
-    this.employeeService.selectedEmployee=data;
-    this.selectedEmployee=this.employeeService.employeeToEdit()
-    
-    this.router.navigate(['edit-employees/'+this.selectedEmployee])
+    this.employeeService.getEmployeeById(emp._id).subscribe((data) => {
+      // console.log(data)
+      this.employeeService.selectedEmployee = data;
+      this.selectedEmployee = this.employeeService.employeeToEdit()
+
+      this.router.navigate(['employee/' + this.selectedEmployee])
     })
-    
   }
 
   deleteEmployee(emp: Employee) {
@@ -45,7 +47,6 @@ export class EmployeeComponent implements OnInit {
       this.employeeList();
     }
   }
-  
 
   employeeList() {
     this.employeeService.getEmployee().subscribe((data) => {

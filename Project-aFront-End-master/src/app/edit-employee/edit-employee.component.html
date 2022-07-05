@@ -1,9 +1,23 @@
 <!-- <div class="head">
     <h2 class="pt-1">EMPLOYEE PROJECT TRACKER</h2>
 </div> -->
+<div class="head ">
+    <h2 class="pt-1">
+        <button class="btn btn-primary" *ngIf="!employeeService.loggedIn()" (click)="logout()">Login</button>
+        <button class="btn btn-primary" *ngIf="employeeService.loggedIn()"
+            (click)="employeeService.logout()">Logout</button>
+    </h2>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="btn btn-success" (click)="back()">Back</button>
+</nav>
 <div class="signUp-container rounded">
-    <h3 class="pt-1 bg-secondary rounded">Employee Sign-Up</h3>
-    <form #signUpForm="ngForm" class="form-container rounded">
+    <h3 class="pt-1 bg-secondary rounded">Update Employee</h3>
+    <form #editEmployeeform="ngForm" class="form-container rounded">
+        <div class="demo text-left mr-2 small">Click here to fill the existing details of selected timesheet
+            <button class="btn-primary btn-sm" (onload)="formData(editEmployeeform)"
+                (click)=formData(editEmployeeform)>Fill</button><br>
+        </div>
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService._id">
         <div>
             <label><b>First Name</b></label>
@@ -60,34 +74,11 @@
             <small class="text-danger" [class.d-none]="role.valid||role.untouched">Select your Role</small>
 
         </div>
-        <div>
-            <label><b>Password</b></label>
-            <input type="password" #password="ngModel" class="form-control" pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                [class.is-invalid]="password.invalid && password.touched" name="password"
-                [(ngModel)]="employeeService.password" required>
-            <small class="text-danger" *ngIf="password.errors?.['required']" [class.d-none]="password.untouched">Enter
-                your Password</small>
-            <small *ngIf="password.errors?.['pattern']" class="text-danger"
-                [class.d-none]="password.untouched||password.valid">Password must start with Alphabet and contain 8
-                letters with atleast one number</small>
-        </div>
-
-        <div>
-            <label><b>Confirm Password</b></label>
-            <input type="password" #confirmPass="ngModel" class="form-control"
-                pattern="^([A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                [class.is-invalid]="confirmPass.invalid && confirmPass.touched" name="confirmPass"
-                [(ngModel)]="employeeService.confirmPass" (keyup)="checkPass($event)" required>
-            <small class="text-danger" *ngIf="confirmPass.errors?.['required']; else elseBlock"
-                [class.d-none]="confirmPass.untouched">Enter your Password</small>
-            <ng-template #elseBlock><small *ngIf="visible && confirmPass.touched " class="text-danger">Password does not
-                    match</small></ng-template>
-        </div>
 
         <div class="btn">
-            <button class="btn btn-secondary btn-sm" (click)="cancel()">Cancel</button>
-            <button [disabled]="signUpForm.form.invalid" class="btn btn-primary btn-sm"
-                (click)="register(signUpForm)">Sign up</button>
+            <button class="btn btn-secondary btn-sm" (click)="cancel(editEmployeeform)">Cancel</button>
+            <button [disabled]="editEmployeeform.form.invalid" class="btn btn-primary btn-sm"
+                (click)="update(editEmployeeform)">Update</button>
         </div>
     </form>
 </div>

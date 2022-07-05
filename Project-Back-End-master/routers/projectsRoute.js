@@ -15,7 +15,7 @@ router1.get('/', async (req, res) => {
 router1.get('/:id', async (req, res) => {
     try {
         const project = await Project.findById(req.params.id)
-        res.json(project) 
+        res.json(project)
     }
     catch (err) {
         res.send(`Error : ${err}`)
@@ -33,11 +33,11 @@ router1.post('/', async (req, res) => {
     }
 })
 
-router1.put('/:id',async(req,res)=>{
+router1.put('/:id', async (req, res) => {
     try {
         const idToUpdate = req.params.id;
-        const dataToUpdate=req.body;
-        const project=await Project.findById({_id:idToUpdate}).updateOne(dataToUpdate);
+        const dataToUpdate = req.body;
+        const project = await Project.findById({ _id: idToUpdate }).updateOne(dataToUpdate);
         res.json(project)
     }
     catch (err) {

@@ -1,29 +1,29 @@
 const mongoose = require('mongoose')
 const Timesheet1 = new mongoose.Schema({
     project_name: {
-        type:String,
+        type: String,
         // ref:"project",
-        required:true
+        required: true
     },
     date: {
         type: Date,
-        required:true
+        required: true
     },
-    timesheet_name:{
-        type:String,
-        required:true
+    timesheet_name: {
+        type: String,
+        required: true
     },
     addedBy: {
         type: String,
-        required:true
+        required: true
     },
     description: {
         type: String,
-        required:true
+        required: true
     },
     duration: {
         type: String,
-        required:true
+        required: true
     }
 })
 

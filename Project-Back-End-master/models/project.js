@@ -1,32 +1,28 @@
-const mongoose=require('mongoose')
-const Project1=new mongoose.Schema({
-    _id:{
-        type:String,
-        required:true
+const mongoose = require('mongoose')
+const Project1 = new mongoose.Schema({
+    Title: {
+        type: String,
+        required: true
     },
-    Title:{
-        type:String,
-        required:true
+    Description: {
+        type: String
     },
-    Description:{
-        type:String
+    Technologies: {
+        type: Array,
+        required: true
     },
-    Technologies:{
-        type:Array, 
-        required:true
-    }, 
-    Deadline:{
-        type:Date, 
-        required:true
+    Deadline: {
+        type: Date,
+        required: true
     },
-    CreatedAt:{
-        type:Date,
-        required:true
+    CreatedAt: {
+        type: Date,
+        required: true
     },
-    UpdatedAt:{
-        type:Date,
-        required:true
+    UpdatedAt: {
+        type: Date,
+        required: true
     }
 })
 
-module.exports=mongoose.model('project',Project1)
+module.exports = mongoose.model('project', Project1)

@@ -2,39 +2,54 @@
     color: white;
     text-align: center;
 }
-h2{
-    margin-right: 10px;
+
+h2 {
+    margin-right: 20px;
 }
-span{
-    margin-left: 77%;
+
+span {
+    margin-left: 500px;
 }
+
+.options {
+    display: inline;
+}
+
 button {
     float: right;
-    font-size:15px;
+    font-size: 15px;
     margin-top: 5px;
     margin-left: 15px;
 }
-nav,nav button{
+
+nav,nav button {
     margin-left: 20px;
+    float: left;
 }
+
 table,th,tr,td {
     margin: 15px;
     text-align: center;
     border: 1px solid black;
 }
-.emp{
-    margin-left: 150px;
+
+.emp {
+    margin-left: 100px;
 }
-td{
+
+td {
     width: 20px;
     resize: none;
 }
+
 th {
     font-size: large;
 }
-table{
-    width:98%
+
+table {
+    width: 98%
 }
-td button{
+
+td button {
     float: none;
 }

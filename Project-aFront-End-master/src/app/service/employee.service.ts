@@ -9,25 +9,25 @@ import { Router } from '@angular/router';
 })
 export class EmployeeService {
 
-  constructor(private http:HttpClient,private router:Router) { }
-  _id!:Employee;
+  constructor(private http: HttpClient, private router: Router) { }
+  _id!: Employee;
   first_name!: Employee;
   last_name!: Employee;
-  employeeId!:Employee;
-  emailId!:Employee;
+  employeeId!: Employee;
+  emailId!: Employee;
   department!: Employee;
   role!: Employee;
   password!: Employee;
   confirmPass!: Employee;
-  __v!:number;
+  __v!: number;
 
-  employees!:Employee[]
+  employees!: Employee[]
   selectedEmployee!: Employee;
-  loginRole!:String;
+  loginRole!: String;
 
   readonly baseURL = "http://localhost:9000/employee/";
 
-  employeeToEdit(){
+  employeeToEdit() {
     return this.selectedEmployee._id;
   }
   getEmployee() {
@@ -37,41 +37,41 @@ export class EmployeeService {
     return this.http.get<any>(this.baseURL + `${_id}`)
   }
 
-  postEmployee(employee:Employee){
+  postEmployee(employee: Employee) {
     //console.log(employee)
-    return this.http.post(this.baseURL+'sign-up',employee)
+    return this.http.post(this.baseURL + 'sign-up', employee)
   }
 
-  putEmployee(emp:Employee) {
+  putEmployee(emp: Employee) {
     console.log(emp)
-    return this.http.put(this.baseURL + 'update/'+`${emp._id}` , emp, { responseType: 'text' });
+    return this.http.put(this.baseURL + 'update/' + `${emp._id}`, emp, { responseType: 'text' });
   }
 
   deleteEmployee1(_id: String) {
-    return this.http.delete(this.baseURL + 'delete/'+ `${_id}`, { responseType: 'text' });
+    return this.http.delete(this.baseURL + 'delete/' + `${_id}`, { responseType: 'text' });
   }
-  
-  loginManager():boolean{
+
+  loginManager(): boolean {
     return !!localStorage.getItem('role')
   }
 
-  login(data: Login){
+  login(data: Login) {
     //console.log(data)
-    return this.http.post(this.baseURL+'login',data);
+    return this.http.post(this.baseURL + 'login', data);
   }
 
-  loggedIn():boolean{
+  loggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  getToken(){
+  getToken() {
     return localStorage.getItem('token')
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token')
     localStorage.removeItem('role')
-    this.router.navigate(['/login'])
+    this.router.navigate(['login'])
   }
 
 }

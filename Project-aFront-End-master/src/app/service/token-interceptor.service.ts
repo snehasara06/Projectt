@@ -6,21 +6,20 @@ import { catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenInterceptorService implements HttpInterceptor{
+export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private employeeService:EmployeeService) { }
+  constructor(private employeeService: EmployeeService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    let reqToken=req.clone({
-      setHeaders:{
-        Authorization:'Bearer '+this.employeeService.getToken()
+    let reqToken = req.clone({
+      setHeaders: {
+        Authorization: 'Bearer ' + this.employeeService.getToken()
       }
     })
-    return next.handle(reqToken).
-    pipe(
-      catchError((error)=>{
+    return next.handle(reqToken).pipe(
+      catchError((error) => {
         //console.log(error.error)
-        alert(error.error)
+        alert(error.message)
         return throwError(error)
       }))
   }

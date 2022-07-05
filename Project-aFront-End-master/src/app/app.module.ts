@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
-import { EditTimesheetComponent } from './edit-timesheet/edit-timesheet.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { EmployeeComponent } from './employee/employee.component';
+import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { EmployeeComponent } from './employee/employee.component';
     HomeComponent,
     PageNotFoundComponent,
     TimesheetComponent,
-    EditTimesheetComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EditEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +32,7 @@ import { EmployeeComponent } from './employee/employee.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
+  providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

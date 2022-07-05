@@ -14,30 +14,30 @@ export class HomeComponent implements OnInit {
 
   timesheets: Timesheet[] = []
   visible!: boolean;
-  show!:boolean;
-  selectedTimeSheet!:String
+  show!: boolean;
+  selectedTimeSheet!: String
 
 
-  constructor(private router: Router, protected timesheetService: TimesheetService,protected employeeService:EmployeeService) { }
+  constructor(private router: Router, protected timesheetService: TimesheetService, protected employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.timesheetList();
-   //console.log(this.employeeService.loginRole)
+    //console.log(this.employeeService.loginRole)
   }
 
-  logout() { 
+  logout() {
     this.router.navigate(['login'])
   }
 
   editTimeSheet(ts: Timesheet) {
-     this.timesheetService.getTimesheetById(ts._id).subscribe((data) => {
-   // console.log(data)
-    this.timesheetService.selectedTimesheet=data;
-    this.selectedTimeSheet=this.timesheetService.timesheetToEdit()
-    
-    this.router.navigate(['edit-timesheet/'+this.selectedTimeSheet])
+    this.timesheetService.getTimesheetById(ts._id).subscribe((data) => {
+      // console.log(data)
+      this.timesheetService.selectedTimeSheet = data;
+      this.selectedTimeSheet = this.timesheetService.timesheetToEdit()
+
+      this.router.navigate(['/timesheet/' + this.selectedTimeSheet])
     })
-    
+
   }
 
   deleteTimeSheet(data: any) {
@@ -56,10 +56,10 @@ export class HomeComponent implements OnInit {
   }
 
   timesheetList() {
-    if(this.employeeService.loginManager()){
-      this.show=true
+    if (this.employeeService.loginManager()) {
+      this.show = true
     }
-  //  console.log(this.employeeService.loginData)
+    //  console.log(this.employeeService.loginData)
     this.timesheetService.getTimesheet().subscribe((data) => {
       this.timesheetService.timesheets = data;
       if (data != 0) {
@@ -69,9 +69,9 @@ export class HomeComponent implements OnInit {
         this.visible = true;
       }
     })
-    
+
   }
-  viewEmployees(){
+  viewEmployees() {
     this.router.navigate(['employees'])
   }
 }

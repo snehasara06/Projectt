@@ -1,35 +1,35 @@
-const mongoose=require('mongoose')
-const jwt=require('jsonwebtoken')
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
-const employee=new mongoose.Schema({
-    first_name:{
-        type:String,
-        required:true
+const employee = new mongoose.Schema({
+    first_name: {
+        type: String,
+        required: true
     },
-    last_name:{
-        type:String,
-        required:true
+    last_name: {
+        type: String,
+        required: true
     },
-    employeeId:{
-        type:String,
-        required:true,
-        unique:true
+    employeeId: {
+        type: String,
+        required: true,
+        unique: true
     },
     emailId: {
         type: String,
         lowercase: true,
         required: true
     },
-    department:{
-        type:String,
-        required:true
+    department: {
+        type: String,
+        required: true
     },
-    role:{
-        type:String,
-        required:true
+    role: {
+        type: String,
+        required: true
     },
-    password:{
-        type:String
+    password: {
+        type: String
     }
 })
 
@@ -39,4 +39,4 @@ const employee=new mongoose.Schema({
 // }
 
 
-module.exports=mongoose.model('employee',employee)
+module.exports = mongoose.model('employee', employee)

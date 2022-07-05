@@ -2,7 +2,7 @@ const Employee = require('../models/employee')
 const { ObjectId } = require('mongodb');
 const { loginValidation, registerValidation } = require('../validation')
 const bcrypt = require('bcryptjs')
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 const getAllEmployees = async (req, res) => {
     let employee;
@@ -61,11 +61,11 @@ const signUpEmployee = async (req, res) => {
         return console.log(`Error:${err}`)
     }
 
-    let payload={id:employee._id}
-    let token=jwt.sign(payload,process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE})
-    res.status(201).send({token})
+    let payload = { id: employee._id }
+    let token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRE })
+    res.status(201).send({ token })
     //console.log("Successfully Registered");
-   // sendToken(employee, 200, res, message) 
+    // sendToken(employee, 200, res, message) 
 
 }
 
@@ -86,11 +86,11 @@ const loginEmployee = async (req, res) => {
         return console.log(err)
     }
 
-    let payload={id:user._id}
-    let token=jwt.sign(payload,process.env.TOKEN_SECRET,{expiresIn:process.env.TOKEN_EXPIRE})
+    let payload = { id: user._id }
+    let token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRE })
     //console.log("Successfully Logged in");
-    res.status(201).send({user,token})
-}  
+    res.status(201).send({ user, token })
+}
 
 // const loginEmployeeRole=async(req,res)=>{
 //     try{
@@ -112,7 +112,7 @@ const logoutEmployee = async (req, res) => {
         })
     }
     catch (err) {
-        return res.status(400).json({Error:err})
+        return res.status(400).json({ Error: err })
     }
     //console.log("success")
     res.status(200).json({ success: true, message: "Logged out" })

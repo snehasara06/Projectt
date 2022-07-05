@@ -8,17 +8,17 @@ import { EmployeeService } from '../service/employee.service';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  providers:[EmployeeService]
+  providers: [EmployeeService]
 })
 export class SignUpComponent implements OnInit {
-  constructor(private router: Router,protected employeeService:EmployeeService) { }
+  constructor(private router: Router, protected employeeService: EmployeeService) { }
   ngOnInit(): void {
   }
 
-  visible: boolean=false;
+  visible: boolean = false;
   employees!: Employee;
 
-  checkPass(e:Event){
+  checkPass(e: Event) {
     if (this.employeeService.password == this.employeeService.confirmPass) {
       this.visible = false;
     }
@@ -30,10 +30,11 @@ export class SignUpComponent implements OnInit {
   cancel() {
     this.router.navigate(['login'])
   }
-  register(form:NgForm) {
+  register(form: NgForm) {
     this.employeeService.postEmployee(form.value).subscribe((data: any) => {
       console.log(data.token);
-      localStorage.setItem('token',data.token)
+      localStorage.setItem('token', data.token)
+      window.alert("Successfully registered !")
       this.router.navigate(['login'])
     })
 
